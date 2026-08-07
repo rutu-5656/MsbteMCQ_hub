@@ -31,9 +31,10 @@ const Auth = ({ initialIsLogin = false }) => {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || 'Google Auth failed');
-        
         localStorage.setItem('token', data.token);
+        if (data.role) localStorage.setItem('userRole', data.role);
         setSuccess('Successfully logged in with Google!');
+        setTimeout(() => navigate('/dashboard'), 1000);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -68,13 +69,11 @@ const Auth = ({ initialIsLogin = false }) => {
 
       // Success
       localStorage.setItem('token', data.token);
+      if (data.role) localStorage.setItem('userRole', data.role);
       setSuccess(isLogin ? 'Successfully logged in!' : 'Account created successfully!');
       
-      // Clear form if signup
-      if (!isLogin) {
-        setEmail('');
-        setPassword('');
-      }
+      // Redirect after a short delay
+      setTimeout(() => navigate('/dashboard'), 1000);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -82,35 +81,14 @@ const Auth = ({ initialIsLogin = false }) => {
     }
   };
 
+  useEffect(() => {
+    setError('');
+    setSuccess('');
+  }, [isLogin]);
+
   return (
     <div className="auth-container">
-      {/* Left Panel */}
-      <div className="auth-left">
-        <div className="auth-content">
-          <h1 className="auth-heading">Learning that keeps up with you.</h1>
-          <p className="auth-subheading">
-            Join 42,000 learners studying with mentor-led courses, live cohorts and a syllabus that adapts to your pace.
-          </p>
-
-          <div className="auth-features">
-            <div className="auth-feature-item">
-              <BookOpen size={24} />
-              2000+ MCQ's across 5 subjects 
-            </div>
-            <div className="auth-feature-item">
-              <TargetIcon size={24} />
-              Exam-oriented MCQs with previous year questions
-            </div>
-            <div className="auth-feature-item">
-              <ChartBar size={24} />
-              Smart analytics & performance tracking
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Panel */}
-      <div className="auth-right">
+      <div className="auth-card">
           <div className="auth-form-header">
             <h2>{isLogin ? 'Welcome back' : 'Create your account'}</h2>
             <p>Start learning in under a minute — it's free.</p>
@@ -119,13 +97,19 @@ const Auth = ({ initialIsLogin = false }) => {
           <div className="auth-toggle">
             <button 
               className={`auth-toggle-btn ${isLogin ? 'active' : ''}`}
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                navigate('/login');
+                setIsLogin(true);
+              }}
             >
               Log in
             </button>
             <button 
               className={`auth-toggle-btn ${!isLogin ? 'active' : ''}`}
-              onClick={() => navigate('/signup')}
+              onClick={() => {
+                navigate('/signup');
+                setIsLogin(false);
+              }}
             >
               Sign up
             </button>

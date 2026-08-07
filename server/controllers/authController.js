@@ -1,44 +1,53 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-const { User } = require('../models/userModel');
+const { PrismaClient } = require('@prisma/client');
+const { z } = require('zod');
 
+const prisma = new PrismaClient();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
+// Zod Validation Schemas
+const authSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters')
+});
+
 const signup = async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Please provide email and password' });
-  }
-
   try {
-    // Check if user already exists
-    const existingUser = await User.findByEmail(email);
+    // 1. Validate Input
+    const parsed = authSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ message: parsed.error.errors[0].message });
+    }
+    
+    const { email, password } = parsed.data;
+
+    // 2. Check if user already exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password
+    // 3. Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
-    const result = await User.create(email, hashedPassword);
+    // 4. Create user in Prisma
+    const user = await prisma.user.create({
+      data: { email, password: hashedPassword }
+    });
 
-    if (result.insertId) {
-      res.status(201).json({
-        id: result.insertId,
-        email,
-        token: generateToken(result.insertId)
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid user data received' });
-    }
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user.id)
+    });
   } catch (error) {
     console.error('Signup error:', error);
     res.status(500).json({ message: 'Server error' });
@@ -46,21 +55,24 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Please provide email and password' });
-  }
-
   try {
-    // Find user
-    const user = await User.findByEmail(email);
+    // 1. Validate Input (Using same schema)
+    const parsed = authSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ message: parsed.error.errors[0].message });
+    }
+
+    const { email, password } = parsed.data;
+
+    // 2. Find user
+    const user = await prisma.user.findUnique({ where: { email } });
     
-    // Check password
-    if (user && (await bcrypt.compare(password, user.password))) {
+    // 3. Check password
+    if (user && user.password && (await bcrypt.compare(password, user.password))) {
       res.json({
         id: user.id,
         email: user.email,
+        role: user.role,
         token: generateToken(user.id)
       });
     } else {
@@ -89,21 +101,19 @@ const googleAuth = async (req, res) => {
 
     const email = userInfo.data.email;
 
-    let user = await User.findByEmail(email);
+    let user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
       // Create user without password
-      const result = await User.create(email, null);
-      if (result.insertId) {
-        user = { id: result.insertId, email };
-      } else {
-        return res.status(400).json({ message: 'Failed to create user from Google Auth' });
-      }
+      user = await prisma.user.create({
+        data: { email }
+      });
     }
 
     res.json({
       id: user.id,
       email: user.email,
+      role: user.role,
       token: generateToken(user.id)
     });
   } catch (error) {

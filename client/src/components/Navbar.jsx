@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { GraduationCap } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { GraduationCap, LogOut } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
-  const isLogin = location.pathname === '/login';
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const isLoggedIn = !!token;
+  
+  const isLoginPath = location.pathname === '/login';
 
   const scrollToForm = () => {
     if (window.innerWidth <= 900) {
@@ -15,28 +19,48 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
+        <Link to={isLoggedIn ? "/dashboard" : "/"} className="navbar-logo">
           <GraduationCap size={28} />
           <span>MsbteMCQ</span>
         </Link>
         <div className="navbar-links">
-          <Link 
-            to="/login" 
-            className={`nav-link nav-btn nav-btn-outline ${isLogin ? 'active' : ''}`}
-            onClick={scrollToForm}
-          >
-            Log in
-          </Link>
-          <Link 
-            to="/signup" 
-            className={`nav-link nav-btn ${!isLogin && location.pathname !== '/' ? 'active' : ''}`}
-            onClick={scrollToForm}
-          >
-            Sign up
-          </Link>
+          {isLoggedIn ? (
+            <>
+              
+              <Link to="/subjects" className="nav-link">Subjects</Link>
+              <Link to="/resources" className="nav-link">Resources</Link>
+              <Link to="/profile" className="nav-link">Profile</Link>
+              <Link to="/dashboard" className="nav-link">Dashboard</Link>
+              {localStorage.getItem('userRole') === 'admin' && (
+                <Link to="/admin" className="nav-link" style={{ color: '#f43f5e', fontWeight: 700 }}>Admin</Link>
+              )}
+              <button className="nav-btn nav-btn-outline" onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '1rem' }}>
+                <LogOut size={16} />
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/contact" className="nav-link">Contact Us</Link>
+              <Link 
+                to="/signup" 
+                className="nav-link nav-btn"
+                style={{ marginLeft: '1rem' }}
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
