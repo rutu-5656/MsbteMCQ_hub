@@ -11,8 +11,9 @@
 
 .auth-container {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   width: 100%;
+  margin-top: 70px;
 }
 
 /* --- Left Panel --- */
@@ -382,13 +383,16 @@
 /* Responsive */
 @media (max-width: 900px) {
   .auth-container {
-    flex-direction: column;
+    flex-direction: column; /* Features on top, form on bottom */
   }
   .auth-left {
-    padding: 4rem 2rem;
-    min-height: 500px;
+    padding: 3rem 1.5rem;
+    min-height: auto;
+  }
+  .auth-logo {
+    display: none; /* Hidden on mobile because it's in the Navbar */
   }
   .auth-heading {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 }

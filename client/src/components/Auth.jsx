@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GraduationCap, BookOpen, Users, Trophy, TargetIcon, ChartBar, Eye, EyeOff } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import './Auth.css';
 
-const Auth = () => {
-  const [isLogin, setIsLogin] = useState(false);
+const Auth = ({ initialIsLogin = false }) => {
+  const [isLogin, setIsLogin] = useState(initialIsLogin);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLogin(initialIsLogin);
+  }, [initialIsLogin]);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,11 +87,6 @@ const Auth = () => {
       {/* Left Panel */}
       <div className="auth-left">
         <div className="auth-content">
-          <div className="auth-logo">
-            <GraduationCap size={32} />
-            MsbteMCQ
-          </div>
-          
           <h1 className="auth-heading">Learning that keeps up with you.</h1>
           <p className="auth-subheading">
             Join 42,000 learners studying with mentor-led courses, live cohorts and a syllabus that adapts to your pace.
@@ -118,13 +119,13 @@ const Auth = () => {
           <div className="auth-toggle">
             <button 
               className={`auth-toggle-btn ${isLogin ? 'active' : ''}`}
-              onClick={() => setIsLogin(true)}
+              onClick={() => navigate('/login')}
             >
               Log in
             </button>
             <button 
               className={`auth-toggle-btn ${!isLogin ? 'active' : ''}`}
-              onClick={() => setIsLogin(false)}
+              onClick={() => navigate('/signup')}
             >
               Sign up
             </button>
