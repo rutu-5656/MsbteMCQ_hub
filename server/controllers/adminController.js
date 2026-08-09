@@ -306,6 +306,24 @@ const bulkUploadQuestions = async (req, res) => {
   }
 };
 
+// ─── Delete Subject ────────────────────────────────────────
+const deleteSubject = async (req, res) => {
+  try {
+    const subjectId = parseInt(req.params.subjectId);
+    
+    const subject = await prisma.subject.findUnique({ where: { id: subjectId } });
+    if (!subject) {
+      return res.status(404).json({ message: 'Subject not found' });
+    }
+    
+    await prisma.subject.delete({ where: { id: subjectId } });
+    res.json({ message: 'Subject deleted successfully' });
+  } catch (error) {
+    console.error('deleteSubject error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
@@ -313,5 +331,6 @@ module.exports = {
   getSubjectsWithChapters,
   createSubject,
   createChapter,
-  bulkUploadQuestions
+  bulkUploadQuestions,
+  deleteSubject
 };

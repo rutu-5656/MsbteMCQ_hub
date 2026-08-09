@@ -11,13 +11,14 @@ datasource db {
 }
 
 model User {
-  id        Int            @id @default(autoincrement())
-  email     String         @unique @db.VarChar(255)
-  name      String?        @db.VarChar(255)
-  password  String?        @db.VarChar(255)
-  role      String         @default("user") @db.VarChar(20)
-  createdAt DateTime       @default(now()) @map("created_at")
-  progress  UserProgress[]
+  id           Int            @id @default(autoincrement())
+  email        String         @unique @db.VarChar(255)
+  name         String?        @db.VarChar(255)
+  password     String?        @db.VarChar(255)
+  role         String         @default("user") @db.VarChar(20)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  progress     UserProgress[]
+  testAttempts TestAttempt[]
 
   @@map("users")
 }
@@ -34,13 +35,14 @@ model Subject {
 }
 
 model Chapter {
-  id            Int        @id @default(autoincrement())
-  title         String     @db.VarChar(255)
-  chapterNumber Int        @map("chapter_number")
-  subjectId     Int        @map("subject_id")
-  createdAt     DateTime   @default(now()) @map("created_at")
-  subject       Subject    @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  id            Int           @id @default(autoincrement())
+  title         String        @db.VarChar(255)
+  chapterNumber Int           @map("chapter_number")
+  subjectId     Int           @map("subject_id")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  subject       Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   questions     Question[]
+  testAttempts  TestAttempt[]
 
   @@unique([subjectId, chapterNumber])
   @@map("chapters")
@@ -58,6 +60,7 @@ model Question {
   createdAt     DateTime       @default(now()) @map("created_at")
   chapter       Chapter        @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   progress      UserProgress[]
+  testAnswers   TestAnswer[]
 
   @@map("questions")
 }
@@ -84,4 +87,37 @@ model Resource {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("resources")
+}
+
+model TestAttempt {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  chapterId   Int      @map("chapter_id")
+  score       Int      @default(0)
+  totalQs     Int      @map("total_qs")
+  timeSpent   Int      @default(0) @map("time_spent")
+  status      String   @default("IN_PROGRESS") @db.VarChar(20)
+  createdAt   DateTime @default(now()) @map("created_at")
+  completedAt DateTime? @map("completed_at")
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  answers     TestAnswer[]
+
+  @@map("test_attempts")
+}
+
+model TestAnswer {
+  id            Int         @id @default(autoincrement())
+  testAttemptId Int         @map("test_attempt_id")
+  questionId    Int         @map("question_id")
+  selectedOption String?    @map("selected_option") @db.VarChar(1)
+  isCorrect     Boolean     @default(false) @map("is_correct")
+  isSkipped     Boolean     @default(false) @map("is_skipped")
+  timeSpent     Int         @default(0) @map("time_spent")
+  
+  testAttempt   TestAttempt @relation(fields: [testAttemptId], references: [id], onDelete: Cascade)
+  question      Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("test_answers")
 }

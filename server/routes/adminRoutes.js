@@ -11,9 +11,10 @@ const {
   getSubjectsWithChapters,
   createSubject,
   createChapter,
-  bulkUploadQuestions
+  bulkUploadQuestions,
+  deleteSubject
 } = require('../controllers/adminController');
-const { uploadResource } = require('../controllers/resourceController');
+const { uploadResource, deleteResource } = require('../controllers/resourceController');
 
 // Multer Setup
 const storage = multer.diskStorage({
@@ -40,6 +41,7 @@ router.get('/users/:id/progress', getUserProgress);
 // Subjects & Chapters
 router.get('/subjects', getSubjectsWithChapters);
 router.post('/subjects', createSubject);
+router.delete('/subjects/:subjectId', deleteSubject);
 router.post('/subjects/:subjectId/chapters', createChapter);
 
 // Bulk Upload
@@ -47,5 +49,6 @@ router.post('/chapters/:chapterId/questions/bulk', bulkUploadQuestions);
 
 // Resources
 router.post('/resources', upload.single('file'), uploadResource);
+router.delete('/resources/:id', deleteResource);
 
 module.exports = router;

@@ -107,6 +107,16 @@
   background: #dbeafe;
 }
 
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #111827;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 1rem;
@@ -122,13 +132,53 @@
     height: 24px;
   }
 
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .navbar-links {
-    gap: 0.5rem;
+    position: fixed;
+    top: 70px;
+    right: 0;
+    width: 60%;
+    max-width: 300px;
+    height: 50vh;
+    background: #ffffff;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    border-left: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    border-bottom-left-radius: 1rem;
+    box-shadow: -10px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    
+    /* Animation settings */
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .nav-btn {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.85rem;
-    white-space: nowrap; /* Prevent "Log in" from splitting into two lines */
+  .navbar-links.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .nav-link {
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+
+  .nav-btn, .logout-btn, .get-started-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-left: 0 !important;
   }
 }

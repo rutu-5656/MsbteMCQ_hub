@@ -7,7 +7,7 @@
   background: #0a0e1a;
   color: #e2e8f0;
   font-family: 'Manrope', sans-serif;
-  padding: 6rem 2rem 4rem;
+  padding: 8rem 2rem 4rem;
 }
 
 .admin-inner {
@@ -869,4 +869,25 @@
   .admin-tabs {
     flex-wrap: wrap;
   }
+}
+
+/* Delete Button */
+.delete-icon-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.delete-icon-btn:hover {
+  background: #fef2f2;
+  color: #dc2626;
+  opacity: 1;
 }

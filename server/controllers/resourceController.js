@@ -51,4 +51,22 @@ const uploadResource = async (req, res) => {
   }
 };
 
-module.exports = { getResources, uploadResource };
+// Delete a resource (admin only)
+const deleteResource = async (req, res) => {
+  try {
+    const resourceId = parseInt(req.params.id);
+    
+    const resource = await prisma.resource.findUnique({ where: { id: resourceId } });
+    if (!resource) {
+      return res.status(404).json({ message: 'Resource not found' });
+    }
+    
+    await prisma.resource.delete({ where: { id: resourceId } });
+    res.json({ message: 'Resource deleted successfully' });
+  } catch (error) {
+    console.error('deleteResource error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getResources, uploadResource, deleteResource };

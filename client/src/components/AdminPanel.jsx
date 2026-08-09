@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   LayoutDashboard, Users, Upload, Shield, BarChart3, BookOpen,
   HelpCircle, Target, Search, ChevronDown, ChevronUp, FileJson,
-  X, CheckCircle, AlertCircle, Plus, FolderPlus, UserCheck, FileText
+  X, CheckCircle, AlertCircle, Plus, FolderPlus, UserCheck, FileText, Trash2
 } from 'lucide-react';
 import './AdminPanel.css';
 
@@ -432,6 +432,28 @@ const UploadTab = ({ showToast }) => {
     }
   };
 
+  const handleDeleteSubject = async (subjectId, subjectTitle) => {
+    if (!window.confirm(`Are you sure you want to delete "${subjectTitle}"? This will delete all its chapters and questions as well.`)) {
+      return;
+    }
+    try {
+      const res = await fetch(`${API_BASE}/subjects/${subjectId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      if (res.ok) {
+        showToast('success', 'Subject deleted successfully');
+        loadSubjects();
+        if (selectedSubject === subjectId.toString()) setSelectedSubject('');
+      } else {
+        const data = await res.json();
+        showToast('error', data.message || 'Failed to delete subject');
+      }
+    } catch {
+      showToast('error', 'Failed to delete subject');
+    }
+  };
+
   const handleCreateChapter = async () => {
     if (!selectedSubject || !newChapterTitle.trim() || !newChapterNumber) {
       showToast('error', 'Select a subject, enter title and chapter number');
@@ -553,9 +575,18 @@ const UploadTab = ({ showToast }) => {
               <div className="subjects-list">
                 {subjects.map(s => (
                   <div className="subject-item" key={s.id}>
-                    <div className="subject-item-header">
-                      <span className="subject-item-title">{s.title}</span>
-                      <span className="subject-item-code">{s.code}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div className="subject-item-header">
+                        <span className="subject-item-title">{s.title}</span>
+                        <span className="subject-item-code">{s.code}</span>
+                      </div>
+                      <button 
+                        className="delete-icon-btn" 
+                        onClick={() => handleDeleteSubject(s.id, s.title)}
+                        title="Delete Subject"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                     <div className="chapter-count">
                       {s.chapters.length} chapter{s.chapters.length !== 1 ? 's' : ''}
@@ -711,7 +742,27 @@ const ResourcesTab = ({ showToast }) => {
   const [category, setCategory] = useState('');
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [resources, setResources] = useState([]);
+  const [loadingResources, setLoadingResources] = useState(true);
   const fileRef = useRef(null);
+
+  const fetchResources = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/resources');
+      const data = await res.json();
+      if (res.ok) {
+        setResources(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch resources', err);
+    } finally {
+      setLoadingResources(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchResources();
+  }, []);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -744,6 +795,7 @@ const ResourcesTab = ({ showToast }) => {
       setCategory('');
       setFile(null);
       if (fileRef.current) fileRef.current.value = '';
+      fetchResources();
     } catch (err) {
       showToast('error', err.message);
     } finally {
@@ -751,56 +803,118 @@ const ResourcesTab = ({ showToast }) => {
     }
   };
 
+  const handleDeleteResource = async (id, resourceTitle) => {
+    if (!window.confirm(`Are you sure you want to delete "${resourceTitle}"?`)) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE}/resources/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to delete resource');
+      }
+
+      showToast('success', 'Resource deleted successfully!');
+      fetchResources();
+    } catch (err) {
+      showToast('error', err.message);
+    }
+  };
+
   return (
     <div className="tab-pane">
-      <div className="admin-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h3>Upload Study Resource</h3>
-        <p className="subtitle">Upload PDFs, Docs, or Images for students to download.</p>
+      <div className="upload-layout">
         
-        <form onSubmit={handleUpload} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
-          <div className="form-group">
-            <label>Resource Title</label>
-            <input
-              type="text"
-              placeholder="e.g. Basic Science Formula Sheet"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="admin-input"
-            />
-          </div>
+        {/* Left — Upload Form */}
+        <div className="admin-card">
+          <h3>Upload Study Resource</h3>
+          <p className="subtitle">Upload PDFs, Docs, or Images for students to download.</p>
           
-          <div className="form-group">
-            <label>Category / Branch</label>
-            <input
-              type="text"
-              placeholder="e.g. FYCO - First Year Computer"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="admin-input"
-              list="category-suggestions"
-            />
-            <datalist id="category-suggestions">
-              <option value="FYCO - First Year Computer" />
-              <option value="FYME - First Year Mechanical" />
-              <option value="SYCO - Second Year Computer" />
-            </datalist>
+          <form onSubmit={handleUpload} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
+            <div className="form-group">
+              <label>Resource Title</label>
+              <input
+                type="text"
+                placeholder="e.g. Basic Science Formula Sheet"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="admin-input"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>Category / Branch</label>
+              <input
+                type="text"
+                placeholder="e.g. FYCO - First Year Computer"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="admin-input"
+                list="category-suggestions"
+              />
+              <datalist id="category-suggestions">
+                <option value="FYCO - First Year Computer" />
+                <option value="FYME - First Year Mechanical" />
+                <option value="SYCO - Second Year Computer" />
+              </datalist>
+            </div>
+            
+            <div className="form-group">
+              <label>File to Upload</label>
+              <input
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                className="admin-input"
+                ref={fileRef}
+                accept=".pdf,.doc,.docx,.jpg,.png"
+              />
+            </div>
+            
+            <button type="submit" className="admin-btn primary" disabled={uploading}>
+              {uploading ? 'Uploading...' : 'Upload Resource'}
+            </button>
+          </form>
+        </div>
+
+        {/* Right — Existing Resources */}
+        <div className="admin-card">
+          <h3>Existing Resources</h3>
+          <p className="subtitle">Manage uploaded resources.</p>
+
+          <div style={{ marginTop: '2rem' }}>
+            {loadingResources ? (
+              <div className="loading-wrapper"><div className="spinner" /></div>
+            ) : resources.length === 0 ? (
+              <div className="empty-state">
+                <p>No resources found.</p>
+              </div>
+            ) : (
+              <div className="subjects-list">
+                {resources.map(resource => (
+                  <div className="subject-item" key={resource.id}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+                      <div>
+                        <div className="subject-item-title">{resource.title}</div>
+                        <div className="chapter-count" style={{ marginTop: '0.25rem' }}>{resource.category} • {resource.fileSize}</div>
+                      </div>
+                      <button 
+                        className="delete-icon-btn" 
+                        onClick={() => handleDeleteResource(resource.id, resource.title)}
+                        title="Delete Resource"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          
-          <div className="form-group">
-            <label>File to Upload</label>
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-              className="admin-input"
-              ref={fileRef}
-              accept=".pdf,.doc,.docx,.jpg,.png"
-            />
-          </div>
-          
-          <button type="submit" className="admin-btn primary" disabled={uploading}>
-            {uploading ? 'Uploading...' : 'Upload Resource'}
-          </button>
-        </form>
+        </div>
+
       </div>
     </div>
   );
