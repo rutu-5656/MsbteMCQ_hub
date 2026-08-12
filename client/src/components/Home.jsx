@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { ArrowRight, BookOpen, Target, Award, Users } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
+  const token = localStorage.getItem('token');
+  
+  if (token) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <div className="home-container">
       {/* Hero Section */}

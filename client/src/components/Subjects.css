@@ -15,7 +15,7 @@
 }
 
 .badge-premium {
-  background: linear-gradient(135deg, #2563eb, #9333ea);
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
   color: white;
   padding: 0.5rem 1.25rem;
   border-radius: 99px;
@@ -24,7 +24,7 @@
   margin-bottom: 1.5rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
 }
 
 .subjects-header h1 {
@@ -52,13 +52,13 @@
   max-width: 600px;
   padding: 0.75rem 1.25rem;
   border-radius: 99px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 .search-bar:focus-within {
-  border-color: #3b82f6;
+  border-color: #8b5cf6;
   box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.15);
   transform: translateY(-2px);
 }
@@ -102,14 +102,14 @@
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 1;
 }
 
 .premium-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
 }
 
 .card-glow {
@@ -131,9 +131,9 @@
 }
 
 /* Color Themes */
-.premium-blue .icon-wrapper { background: #eff6ff; color: #2563eb; }
+.premium-blue .icon-wrapper { background: #f3e8ff; color: #7c3aed; }
 .premium-blue:hover { border-color: #bfdbfe; }
-.premium-blue .badge-pro { background: #dbeafe; color: #1e40af; }
+.premium-blue .badge-pro { background: #f3e8ff; color: #1e40af; }
 
 .premium-purple .icon-wrapper { background: #faf5ff; color: #9333ea; }
 .premium-purple:hover { border-color: #e9d5ff; }
@@ -302,7 +302,7 @@
 }
 
 /* Blue color theme */
-.premium-blue .icon-wrapper { background: #eff6ff; color: #2563eb; }
+.premium-blue .icon-wrapper { background: #f3e8ff; color: #7c3aed; }
 .premium-blue:hover { border-color: #bfdbfe; }
-.premium-blue .badge-pro { background: #dbeafe; color: #1e40af; }
+.premium-blue .badge-pro { background: #f3e8ff; color: #1e40af; }
 

@@ -8,10 +8,11 @@ import Home from './components/Home';
 import Contact from './components/Contact';
 import Subjects from './components/Subjects';
 import Resources from './components/Resources';
-import Profile from './components/Profile';
+
 import AdminPanel from './components/AdminPanel';
 import Quiz from './components/Quiz';
 import ProtectedRoute from './components/ProtectedRoute';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -30,9 +31,10 @@ function App() {
           <Route path="/subjects" element={<ProtectedRoute><Subjects /></ProtectedRoute>} />
           <Route path="/subjects/:subjectId" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
           <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
           <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
         </Routes>
+        <Footer />
       </Router>
     </GoogleOAuthProvider>
   );

@@ -53,7 +53,7 @@
   background: white;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
   transition: all 0.2s ease;
 }
@@ -80,7 +80,7 @@
 }
 
 .icon-box.pdf { background: #fef2f2; color: #ef4444; }
-.icon-box.doc { background: #eff6ff; color: #3b82f6; }
+.icon-box.doc { background: #f3e8ff; color: #8b5cf6; }
 
 .resource-info h4 {
   font-size: 1.1rem;
@@ -108,7 +108,7 @@
 }
 
 .download-btn:hover {
-  background: #2563eb;
+  background: #7c3aed;
   color: white;
 }
 
@@ -131,13 +131,13 @@
   border-radius: 1.5rem;
   border: 1px solid #f1f5f9;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .resource-category.expanded {
   border-color: #bfdbfe;
-  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.1);
 }
 
 .category-title {
@@ -159,8 +159,8 @@
 .resource-count {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #2563eb;
-  background: #eff6ff;
+  color: #7c3aed;
+  background: #f3e8ff;
   padding: 0.25rem 0.75rem;
   border-radius: 99px;
 }
@@ -183,8 +183,8 @@
 }
 
 .resource-category.expanded .dropdown-icon {
-  background: #eff6ff;
-  color: #2563eb;
+  background: #f3e8ff;
+  color: #7c3aed;
 }
 
 .dropdown-animation {

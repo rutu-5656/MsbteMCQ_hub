@@ -15,7 +15,7 @@
   background: white;
   padding: 2.5rem;
   border-radius: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
 }
 
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #2563eb;
+  background: #7c3aed;
   color: white;
   padding: 1rem 1.5rem;
   border-radius: 99px;
@@ -45,13 +45,13 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
 }
 
 .start-test-btn:hover {
-  background: #1d4ed8;
+  background: #4c1d95;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
 }
 
 /* Stats Grid */
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
   transition: transform 0.3s ease;
 }
@@ -87,7 +87,7 @@
   justify-content: center;
 }
 
-.stat-icon-wrapper.blue { background: #eff6ff; color: #2563eb; }
+.stat-icon-wrapper.blue { background: #f3e8ff; color: #7c3aed; }
 .stat-icon-wrapper.green { background: #f0fdf4; color: #16a34a; }
 .stat-icon-wrapper.purple { background: #faf5ff; color: #9333ea; }
 .stat-icon-wrapper.orange { background: #fff7ed; color: #ea580c; }
@@ -131,7 +131,7 @@
   gap: 0.25rem;
   background: transparent;
   border: none;
-  color: #2563eb;
+  color: #7c3aed;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -146,7 +146,7 @@
   background: white;
   border-radius: 1.25rem;
   padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
 }
 
@@ -206,7 +206,7 @@
   background: white;
   padding: 1.5rem;
   border-radius: 1.25rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
   text-align: center;
   transition: transform 0.2s ease;
@@ -215,7 +215,7 @@
 
 .subject-card:hover {
   transform: translateY(-3px);
-  border-color: #2563eb;
+  border-color: #7c3aed;
 }
 
 .subject-icon {

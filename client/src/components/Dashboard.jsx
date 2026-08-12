@@ -144,7 +144,7 @@ const Dashboard = () => {
         <section className="recent-activity">
           <div className="section-header">
             <h2>Recent Test History</h2>
-            <Link to="/profile" className="view-all-btn" style={{ textDecoration: 'none' }}>View All <ChevronRight size={16}/></Link>
+
           </div>
           
           <div className="activity-list">

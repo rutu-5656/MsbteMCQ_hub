@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { GraduationCap, LogOut, Menu, X } from 'lucide-react';
+import { LogOut, Menu, X } from 'lucide-react';
+import tufLogo from '../../IMGs/tuf logo.png';
+import tufLogoMobile from '../../IMGs/tuf.svg';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -39,8 +41,8 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to={isLoggedIn ? "/dashboard" : "/"} className="navbar-logo" onClick={closeMobileMenu}>
-          <GraduationCap size={28} />
-          <span>MsbteMCQ</span>
+          <img src={tufLogo} alt="Logo" className="desktop-logo" style={{ height: '36px', width: 'auto' }} />
+          <img src={tufLogoMobile} alt="Logo Mobile" className="mobile-logo" style={{ height: '32px', width: 'auto' }} />
         </Link>
         
         <div className="navbar-mobile-controls">
@@ -63,7 +65,7 @@ const Navbar = () => {
             <>
               <Link to="/subjects" className="nav-link" onClick={closeMobileMenu}>Subjects</Link>
               <Link to="/resources" className="nav-link" onClick={closeMobileMenu}>Resources</Link>
-              <Link to="/profile" className="nav-link" onClick={closeMobileMenu}>Profile</Link>
+
               <Link to="/dashboard" className="nav-link" onClick={closeMobileMenu}>Dashboard</Link>
               {localStorage.getItem('userRole') === 'admin' && (
                 <Link to="/admin" className="nav-link" onClick={closeMobileMenu} style={{ color: '#f43f5e', fontWeight: 700 }}>Admin</Link>

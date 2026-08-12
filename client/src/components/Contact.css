@@ -28,7 +28,7 @@
   gap: 4rem;
   background: white;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   border: 1px solid #f1f5f9;
 }
@@ -112,9 +112,9 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #7c3aed;
   background: white;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
 }
 
 .submit-btn {
@@ -122,7 +122,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #2563eb;
+  background: #7c3aed;
   color: white;
   padding: 1rem;
   border: none;
@@ -135,9 +135,9 @@
 }
 
 .submit-btn:hover {
-  background: #1d4ed8;
+  background: #4c1d95;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
 }
 
 @media (max-width: 900px) {
