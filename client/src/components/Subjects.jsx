@@ -25,7 +25,7 @@ const Subjects = () => {
 
         if (!res.ok) throw new Error('Failed to fetch subjects');
         const data = await res.json();
-        setSubjects(data);
+        setSubjects(data); // subject are fethed while try conditon turns false;
       } catch (err) {
         setError(err.message);
       } finally {
@@ -35,14 +35,14 @@ const Subjects = () => {
 
     fetchSubjects();
   }, []);
-
+// to filter out subject
   const filtered = subjects.filter((subject) => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return true;
     return (
       subject.title.toLowerCase().includes(query) ||
       subject.code.toLowerCase().includes(query)
-    );
+    );      
   });
 
   return (

@@ -17,15 +17,22 @@ const authSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters')
 });
 
+const signupSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+});
+
 const signup = async (req, res) => {
   try {
     // 1. Validate Input
-    const parsed = authSchema.safeParse(req.body);
+    const parsed = signupSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({ message: parsed.error.errors[0].message });
     }
     
-    const { email, password } = parsed.data;
+    const { email, password, firstName, lastName } = parsed.data;
 
     // 2. Check if user already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -39,7 +46,11 @@ const signup = async (req, res) => {
 
     // 4. Create user in Prisma
     const user = await prisma.user.create({
-      data: { email, password: hashedPassword }
+      data: { 
+        email, 
+        password: hashedPassword,
+        name: `${firstName} ${lastName}`.trim()
+      }
     });
 
     res.status(201).json({
@@ -105,8 +116,9 @@ const googleAuth = async (req, res) => {
 
     if (!user) {
       // Create user without password
+      const name = userInfo.data.name || '';
       user = await prisma.user.create({
-        data: { email }
+        data: { email, name }
       });
     }
 

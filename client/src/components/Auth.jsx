@@ -14,6 +14,8 @@ const Auth = ({ initialIsLogin = false }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -53,12 +55,16 @@ const Auth = ({ initialIsLogin = false }) => {
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
     
     try {
+      const bodyData = isLogin 
+        ? { email, password } 
+        : { email, password, firstName, lastName };
+
       const response = await fetch(`http://localhost:5000${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(bodyData),
       });
 
       const data = await response.json();
@@ -118,6 +124,34 @@ const Auth = ({ initialIsLogin = false }) => {
           <form className="auth-form" onSubmit={handleSubmit}>
             {error && <div className="auth-error">{error}</div>}
             {success && <div className="auth-success">{success}</div>}
+            
+            {!isLogin && (
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <div className="form-group" style={{ flex: 1, minWidth: 0 }}>
+                  <label>First Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Jane" 
+                    required={!isLogin}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box' }}
+                  />
+                </div>
+                <div className="form-group" style={{ flex: 1, minWidth: 0 }}>
+                  <label>Last Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Doe" 
+                    required={!isLogin}
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box' }}
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="form-group">
               <label>Email</label>
               <input 

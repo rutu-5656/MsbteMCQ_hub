@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   LayoutDashboard, Users, Upload, Shield, BarChart3, BookOpen,
   HelpCircle, Target, Search, ChevronDown, ChevronUp, FileJson,
-  X, CheckCircle, AlertCircle, Plus, FolderPlus, UserCheck, FileText, Trash2
+  X, CheckCircle, AlertCircle, Plus, FolderPlus, UserCheck, FileText, Trash2, Mail
 } from 'lucide-react';
 import './AdminPanel.css';
 
@@ -29,7 +29,8 @@ const AdminPanel = () => {
     { id: 'overview', label: 'Overview', icon: <LayoutDashboard size={18} /> },
     { id: 'users', label: 'Users', icon: <Users size={18} /> },
     { id: 'upload', label: 'Upload MCQs', icon: <Upload size={18} /> },
-    { id: 'resources', label: 'Resources', icon: <FileText size={18} /> }
+    { id: 'resources', label: 'Resources', icon: <FileText size={18} /> },
+    { id: 'messages', label: 'Messages', icon: <Mail size={18} /> }
   ];
 
   return (
@@ -60,6 +61,7 @@ const AdminPanel = () => {
         {activeTab === 'users' && <UsersTab showToast={showToast} />}
         {activeTab === 'upload' && <UploadTab showToast={showToast} />}
         {activeTab === 'resources' && <ResourcesTab showToast={showToast} />}
+        {activeTab === 'messages' && <MessagesTab showToast={showToast} />}
       </div>
 
       {toast && (
@@ -733,6 +735,129 @@ const UploadTab = ({ showToast }) => {
 };
 
 export default AdminPanel;
+
+// ═══════════════════════════════════════════════════
+//  MESSAGES TAB
+// ═══════════════════════════════════════════════════
+const MessagesTab = ({ showToast }) => {
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMessages = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/messages`, { headers: getAuthHeaders() });
+      const data = await res.json();
+      if (res.ok) {
+        setMessages(data);
+      } else {
+        showToast('error', data.message || 'Failed to fetch messages');
+      }
+    } catch (err) {
+      showToast('error', 'Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const handleMarkRead = async (id, currentStatus) => {
+    const newStatus = currentStatus === 'READ' ? 'UNREAD' : 'READ';
+    try {
+      const res = await fetch(`${API_BASE}/messages/${id}/read`, {
+        method: 'PATCH',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (res.ok) {
+        showToast('success', `Message marked as ${newStatus.toLowerCase()}`);
+        fetchMessages();
+      } else {
+        showToast('error', 'Failed to update message');
+      }
+    } catch (err) {
+      showToast('error', 'Network error');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this message?')) return;
+    try {
+      const res = await fetch(`${API_BASE}/messages/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      if (res.ok) {
+        showToast('success', 'Message deleted');
+        fetchMessages();
+      } else {
+        showToast('error', 'Failed to delete message');
+      }
+    } catch (err) {
+      showToast('error', 'Network error');
+    }
+  };
+
+  if (loading) return <div className="loading-wrapper"><div className="spinner" /></div>;
+
+  return (
+    <div>
+      <div className="section-title">
+        Contact Messages
+        <span className="count-badge">{messages.length}</span>
+      </div>
+
+      <div className="messages-list">
+        {messages.length === 0 ? (
+          <div className="empty-state">
+            <Mail size={40} color="#cbd5e1" style={{ marginBottom: '1rem' }} />
+            <h4>No messages yet</h4>
+            <p>When users contact you, their messages will appear here.</p>
+          </div>
+        ) : (
+          messages.map(msg => (
+            <div key={msg.id} className={`message-card ${msg.status === 'UNREAD' ? 'unread' : ''}`}>
+              <div className="message-header">
+                <div className="message-sender">
+                  <div className="sender-avatar">{msg.name.charAt(0).toUpperCase()}</div>
+                  <div className="sender-info">
+                    <strong>{msg.name}</strong>
+                    <a href={`mailto:${msg.email}`}>{msg.email}</a>
+                  </div>
+                </div>
+                <div className="message-meta">
+                  <span className="message-date">{new Date(msg.createdAt).toLocaleString()}</span>
+                  <div className="message-actions">
+                    <button 
+                      className={`btn-action ${msg.status === 'UNREAD' ? 'read-btn' : 'unread-btn'}`}
+                      onClick={() => handleMarkRead(msg.id, msg.status)}
+                      title={msg.status === 'UNREAD' ? 'Mark as Read' : 'Mark as Unread'}
+                    >
+                      {msg.status === 'UNREAD' ? <CheckCircle size={16} /> : <Mail size={16} />}
+                    </button>
+                    <button 
+                      className="btn-action delete-btn"
+                      onClick={() => handleDelete(msg.id)}
+                      title="Delete Message"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="message-body">
+                <div className="message-subject">Subject: {msg.subject}</div>
+                <div className="message-text">{msg.message}</div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
 
 // ═══════════════════════════════════════════════════
 //  RESOURCES TAB

@@ -117,6 +117,10 @@
   z-index: 1001;
 }
 
+.navbar-mobile-controls {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 1rem;
@@ -130,6 +134,17 @@
   .navbar-logo svg {
     width: 24px;
     height: 24px;
+  }
+
+  .navbar-mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-get-started {
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.75rem !important;
   }
 
   .mobile-menu-btn {
@@ -175,10 +190,14 @@
     padding: 0.5rem 0;
   }
 
-  .nav-btn, .logout-btn, .get-started-btn {
+  .nav-btn, .logout-btn {
     width: 100%;
     text-align: center;
     justify-content: center;
     margin-left: 0 !important;
+  }
+  
+  .navbar-links .get-started-btn {
+    display: none;
   }
 }

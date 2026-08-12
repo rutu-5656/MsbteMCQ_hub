@@ -108,13 +108,14 @@
 
 .btn-secondary {
   background: transparent;
-  color: #475569;
-  border: 1px solid #cbd5e1;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .btn-secondary:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: white;
 }
 
 /* Hero Visual Details */
@@ -179,6 +180,7 @@
 }
 
 .section-header.center {
+  display: block;
   text-align: center;
   margin-bottom: 4rem;
 }

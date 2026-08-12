@@ -28,7 +28,7 @@ const Home = () => {
         <div className="hero-visual">
           <div className="floating-card top-left">
             <BookOpen size={24} className="icon-blue" />
-            <span>20,000+ MCQs</span>
+            <span>2000+ MCQs</span>
           </div>
           <div className="floating-card bottom-right">
             <Target size={24} className="icon-green" />

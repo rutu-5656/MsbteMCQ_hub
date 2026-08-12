@@ -43,9 +43,20 @@ const Navbar = () => {
           <span>MsbteMCQ</span>
         </Link>
         
-        <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="navbar-mobile-controls">
+          {!isLoggedIn && (
+            <Link 
+              to="/signup" 
+              className="nav-btn get-started-btn mobile-get-started"
+              onClick={closeMobileMenu}
+            >
+              Get Started
+            </Link>
+          )}
+          <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
           {isLoggedIn ? (

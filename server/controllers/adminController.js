@@ -324,6 +324,50 @@ const deleteSubject = async (req, res) => {
   }
 };
 
+// ─── Contact Messages ────────────────────────────────────────
+const getMessages = async (req, res) => {
+  try {
+    const messages = await prisma.contactMessage.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    res.json(messages);
+  } catch (error) {
+    console.error('getMessages error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const markMessageRead = async (req, res) => {
+  try {
+    const messageId = parseInt(req.params.id);
+    const { status } = req.body;
+    
+    if (status !== 'READ' && status !== 'UNREAD') {
+      return res.status(400).json({ message: 'Invalid status' });
+    }
+
+    const message = await prisma.contactMessage.update({
+      where: { id: messageId },
+      data: { status }
+    });
+    res.json(message);
+  } catch (error) {
+    console.error('markMessageRead error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const deleteMessage = async (req, res) => {
+  try {
+    const messageId = parseInt(req.params.id);
+    await prisma.contactMessage.delete({ where: { id: messageId } });
+    res.json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    console.error('deleteMessage error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
@@ -332,5 +376,8 @@ module.exports = {
   createSubject,
   createChapter,
   bulkUploadQuestions,
-  deleteSubject
+  deleteSubject,
+  getMessages,
+  markMessageRead,
+  deleteMessage
 };

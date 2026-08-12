@@ -12,7 +12,10 @@ const {
   createSubject,
   createChapter,
   bulkUploadQuestions,
-  deleteSubject
+  deleteSubject,
+  getMessages,
+  markMessageRead,
+  deleteMessage
 } = require('../controllers/adminController');
 const { uploadResource, deleteResource } = require('../controllers/resourceController');
 
@@ -50,5 +53,10 @@ router.post('/chapters/:chapterId/questions/bulk', bulkUploadQuestions);
 // Resources
 router.post('/resources', upload.single('file'), uploadResource);
 router.delete('/resources/:id', deleteResource);
+
+// Messages
+router.get('/messages', getMessages);
+router.patch('/messages/:id/read', markMessageRead);
+router.delete('/messages/:id', deleteMessage);
 
 module.exports = router;

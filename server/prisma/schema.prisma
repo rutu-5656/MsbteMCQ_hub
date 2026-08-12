@@ -121,3 +121,15 @@ model TestAnswer {
 
   @@map("test_answers")
 }
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  subject   String   @db.VarChar(255)
+  message   String   @db.Text
+  status    String   @default("UNREAD") @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
