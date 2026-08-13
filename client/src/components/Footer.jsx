@@ -37,9 +37,9 @@ const Footer = () => {
             <img src={tufLogo} alt="Logo" className="footer-logo-img" style={{ height: '40px', width: 'auto' }} />
           </Link>
           
-          <p className="footer-description">
+          {/* <p className="footer-description">
             The #1 platform for MSBTE diploma students to master their exams with real exam patterns and high-quality MCQs.
-          </p>
+          </p> */}
           
           <p className="copyright">
             Copyright &copy; {new Date().getFullYear()} MsbteMCQ. All Rights Reserved. <br/>

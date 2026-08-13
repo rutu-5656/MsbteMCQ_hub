@@ -1,5 +1,5 @@
 .footer {
-  background: #09090b; /* Deep dark slate/black like the screenshot */
+  background: #0a052f; /* #09090b Deep dark slate/black like the screenshot */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 4rem 0 4rem 0;
   margin-top: auto;
@@ -32,7 +32,7 @@
 }
 
 .footer-logo-img {
-  filter: brightness(0) invert(1);
+  filter: brightness(1) invert(3);
 }
 
 .footer-description {

@@ -177,6 +177,31 @@ const UsersTab = ({ showToast }) => {
     }
   };
 
+    const handleDeleteUser = async (userId, userName) => {
+     if (!window.confirm(`Are you sure you want to completely delete the user ${userName || 'this user'}? This action cannot be undone.`)) {
+       return;
+     }
+   
+      try {
+        const res = await fetch(`${API_BASE}/users/${userId}`, {
+          method: 'DELETE',
+         headers: getAuthHeaders()
+       });
+       
+       if (res.ok) {
+         showToast('success', 'User deleted successfully');
+         // Remove the user from the local state so the UI updates instantly
+         setUsers(users.filter(u => u.id !== userId));
+       } else {
+         const errorData = await res.json();
+         showToast('error', errorData.message || 'Failed to delete user');
+       }
+     } catch (error) {
+       console.error("Delete user error:", error);
+       showToast('error', 'Server error while deleting user');
+     }
+   };
+
   const filtered = users.filter(u => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return true;
@@ -232,10 +257,17 @@ const UsersTab = ({ showToast }) => {
                     </div>
                   </td>
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td style={{ display: 'flex', gap: '10px' }}>
                     <button className="view-btn" onClick={() => toggleUserDetail(user.id)}>
                       {expandedUser === user.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                       {expandedUser === user.id ? 'Hide' : 'Details'}
+                    </button>
+                    <button 
+                      className="delete-btn" 
+                      onClick={() => handleDeleteUser(user.id, user.email)}
+                      style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.75rem', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+                    >
+                      <Trash2 size={14} /> Delete
                     </button>
                   </td>
                 </tr>
@@ -998,7 +1030,7 @@ const ResourcesTab = ({ showToast }) => {
               />
             </div>
             
-            <button type="submit" className="admin-btn primary" disabled={uploading}>
+            <button type="submit" className="upload-btn" disabled={uploading}>
               {uploading ? 'Uploading...' : 'Upload Resource'}
             </button>
           </form>

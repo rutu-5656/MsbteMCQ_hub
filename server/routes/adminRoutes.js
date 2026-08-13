@@ -15,7 +15,8 @@ const {
   deleteSubject,
   getMessages,
   markMessageRead,
-  deleteMessage
+  deleteMessage,
+  deleteUser
 } = require('../controllers/adminController');
 const { uploadResource, deleteResource } = require('../controllers/resourceController');
 
@@ -40,6 +41,7 @@ router.get('/stats', getDashboardStats);
 // Users
 router.get('/users', getAllUsers);
 router.get('/users/:id/progress', getUserProgress);
+router.delete('/users/:id', deleteUser); 
 
 // Subjects & Chapters
 router.get('/subjects', getSubjectsWithChapters);

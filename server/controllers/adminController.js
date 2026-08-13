@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const { z } = require('zod');
+const { id } = require('zod/v4/locales');
 
 const prisma = new PrismaClient();
 
@@ -368,6 +369,27 @@ const deleteMessage = async (req, res) => {
   }
 };
 
+// delete user
+const deleteUser = async(req,res) =>{
+
+  try{
+    const userId = parseInt(req.params.id);
+    
+    // to prevent admin to dont delete his own account
+    if (userId == req.user.id) {
+      return res.status(400).json({ message: "You cannot delete your own admin account." });
+    }
+
+    // prisma will automatically delete user
+    await prisma.user.delete({where: {id:userId}
+    });
+      res.status(200).json({ message: 'User deleted successfully'});
+  }catch(error){
+     console.error("Error deleting user:", error);
+     res.status(500).json({ message: 'Error deleting user' });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
@@ -379,5 +401,6 @@ module.exports = {
   deleteSubject,
   getMessages,
   markMessageRead,
-  deleteMessage
+  deleteMessage,
+  deleteUser
 };
