@@ -17,9 +17,11 @@ const app = express();
 // Security Middlewares
 app.use(helmet());
 
-// Restrict CORS to our frontend domain in production, for now allow localhost
+// Allow dynamic origins for Vercel and custom domains
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
   credentials: true
 }));
 
