@@ -39,7 +39,7 @@
 }
 
 .navbar-logo img {
-  filter: brightness(0) invert(1);
+  /* removed filter so the logo displays with its original colors */
 }
 
 .navbar-logo svg {
