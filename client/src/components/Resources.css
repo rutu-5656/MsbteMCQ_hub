@@ -2,7 +2,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 8rem 2rem 2rem;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
 }
 
 .resources-header {
@@ -11,14 +11,14 @@
 }
 
 .resources-header h1 {
-  font-family: 'Sora', sans-serif;
+  font-family: var(--font-heading);
   font-size: 3rem;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
 .resources-header p {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 1.15rem;
 }
 
@@ -33,7 +33,7 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .folder-icon {
@@ -54,13 +54,13 @@
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  border: 1px solid #f1f5f9;
+  border: 1px solid var(--bg-secondary);
   transition: all 0.2s ease;
 }
 
 .resource-item:hover {
   transform: translateX(5px);
-  border-color: #cbd5e1;
+  border-color: var(--border-color);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
 }
 
@@ -80,17 +80,17 @@
 }
 
 .icon-box.pdf { background: #fef2f2; color: #ef4444; }
-.icon-box.doc { background: #f3e8ff; color: #8b5cf6; }
+.icon-box.doc { background: #f3e8ff; color: var(--accent-light); }
 
 .resource-info h4 {
   font-size: 1.1rem;
-  color: #1e293b;
+  color: var(--text-main);
   margin-bottom: 0.25rem;
 }
 
 .resource-info p {
   font-size: 0.85rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .download-btn {
@@ -98,8 +98,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: #f1f5f9;
-  color: #334155;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -108,7 +108,7 @@
 }
 
 .download-btn:hover {
-  background: #7c3aed;
+  background: var(--accent);
   color: white;
 }
 
@@ -129,7 +129,7 @@
 .resource-category {
   background: white;
   border-radius: 1.5rem;
-  border: 1px solid #f1f5f9;
+  border: 1px solid var(--bg-secondary);
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
@@ -137,7 +137,7 @@
 
 .resource-category.expanded {
   border-color: #bfdbfe;
-  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.1);
 }
 
 .category-title {
@@ -145,7 +145,7 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 0;
-  color: #0f172a;
+  color: var(--text-main);
   padding: 0.5rem;
   border-radius: 1rem;
   transition: background 0.2s ease;
@@ -153,38 +153,38 @@
 }
 
 .category-title:hover {
-  background: #f8fafc;
+  background: var(--bg-main);
 }
 
 .resource-count {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--accent);
   background: #f3e8ff;
   padding: 0.25rem 0.75rem;
   border-radius: 99px;
 }
 
 .dropdown-icon {
-  color: #64748b;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #f1f5f9;
+  background: var(--bg-secondary);
   transition: all 0.2s ease;
 }
 
 .category-title:hover .dropdown-icon {
-  background: #e2e8f0;
-  color: #334155;
+  background: var(--border-light);
+  color: var(--text-secondary);
 }
 
 .resource-category.expanded .dropdown-icon {
   background: #f3e8ff;
-  color: #7c3aed;
+  color: var(--accent);
 }
 
 .dropdown-animation {

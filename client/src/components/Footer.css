@@ -1,10 +1,10 @@
 .footer {
-  background: #0a052f; /* #09090b Deep dark slate/black like the screenshot */
+  background: var(--bg-dark); /* #09090b Deep dark slate/black like the screenshot */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 4rem 0 4rem 0;
   margin-top: auto;
   color: #a1a1aa; /* soft gray text */
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   position: relative;
   z-index: 10;
 }
