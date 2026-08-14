@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import './AdminPanel.css';
 
-const API_BASE = 'http://localhost:5000/api/admin';
+const API_BASE = 'https://msbtemcq-hub.onrender.com/api/admin';
 
 const getAuthHeaders = () => ({
   'Content-Type': 'application/json',
@@ -905,7 +905,7 @@ const ResourcesTab = ({ showToast }) => {
 
   const fetchResources = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/resources');
+      const res = await fetch('https://msbtemcq-hub.onrender.com/api/resources');
       const data = await res.json();
       if (res.ok) {
         setResources(data);

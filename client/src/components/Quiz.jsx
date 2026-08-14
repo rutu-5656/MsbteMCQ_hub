@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 import './Quiz.css';
 
-const API_SUBJECTS = 'http://localhost:5000/api/subjects';
-const API_TESTS = 'http://localhost:5000/api/tests';
+const API_SUBJECTS = 'https://msbtemcq-hub.onrender.com/api/subjects';
+const API_TESTS = 'https://msbtemcq-hub.onrender.com/api/tests';
 
 const getAuthHeaders = () => ({
   'Content-Type': 'application/json',

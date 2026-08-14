@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FileText, Download, Folder, Loader, ChevronDown, ChevronUp } from 'lucide-react';
 import './Resources.css';
 
-const API_BASE = 'http://localhost:5000/api';
-const SERVER_URL = 'http://localhost:5000';
+const API_BASE = 'https://msbtemcq-hub.onrender.com/api';
+const SERVER_URL = 'https://msbtemcq-hub.onrender.com';
 
 const Resources = () => {
   const [resources, setResources] = useState([]);

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Trophy, Target, Clock, BookOpen, ChevronRight, PlayCircle, Loader } from 'lucide-react';
 import './Dashboard.css';
 
-const API_DASHBOARD = 'http://localhost:5000/api/users/dashboard';
+const API_DASHBOARD = 'https://msbtemcq-hub.onrender.com/api/users/dashboard';
 
 const Dashboard = () => {
   const navigate = useNavigate();

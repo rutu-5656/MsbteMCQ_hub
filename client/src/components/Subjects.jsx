@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Code, ArrowRight, BookOpen, Target, Layers, Loader } from 'lucide-react';
 import './Subjects.css';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://msbtemcq-hub.onrender.com/api';
 
 // Color class rotation for subjects without one set
 const colorClasses = ['premium-blue', 'premium-purple', 'premium-orange'];

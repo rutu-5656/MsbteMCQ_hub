@@ -26,7 +26,7 @@ const Auth = ({ initialIsLogin = false }) => {
       setError('');
       setSuccess('');
       try {
-        const res = await fetch('http://localhost:5000/api/auth/google', {
+        const res = await fetch('https://msbtemcq-hub.onrender.com/api/auth/google', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: tokenResponse.access_token }),
@@ -59,7 +59,7 @@ const Auth = ({ initialIsLogin = false }) => {
         ? { email, password } 
         : { email, password, firstName, lastName };
 
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`https://msbtemcq-hub.onrender.com${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
