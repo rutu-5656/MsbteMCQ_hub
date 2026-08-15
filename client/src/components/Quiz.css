@@ -676,3 +676,11 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 900px) {
+  .test-sidebar {
+    position: static !important;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+  }
+}
