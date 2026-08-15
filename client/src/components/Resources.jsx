@@ -105,7 +105,7 @@ const Resources = () => {
                           </div>
                         </div>
                         <a 
-                          href={`${SERVER_URL}${item.filePath}`} 
+                          href={item.filePath.startsWith('http') ? item.filePath : `${SERVER_URL}${item.filePath}`} 
                           download 
                           target="_blank" 
                           rel="noreferrer"
