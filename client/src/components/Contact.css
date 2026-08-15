@@ -107,6 +107,8 @@
   font-size: 1rem;
   transition: all 0.3s ease;
   background: var(--bg-main);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .form-group input:focus,
@@ -147,5 +149,24 @@
   
   .contact-form {
     padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 6rem 1rem 2rem;
+    overflow-x: hidden;
+  }
+
+  .contact-info {
+    padding: 2rem 1.5rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .contact-header h1 {
+    font-size: 2rem;
   }
 }
