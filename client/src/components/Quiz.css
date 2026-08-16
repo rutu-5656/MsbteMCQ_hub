@@ -684,3 +684,14 @@
     z-index: 1;
   }
 }
+
+@media (max-width: 600px) {
+  .results-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .results-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
