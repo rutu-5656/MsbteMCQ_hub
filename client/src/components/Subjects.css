@@ -303,3 +303,21 @@
   color: var(--text-muted);
   font-size: 1rem;
 }
+
+/* E-commerce Style Ribbon */
+.discount-ribbon {
+  position: absolute;
+  top: 20px;
+  right: -32px;
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  color: white;
+  padding: 0.35rem 3rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+  z-index: 10;
+  pointer-events: none;
+}

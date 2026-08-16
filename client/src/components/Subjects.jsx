@@ -105,6 +105,7 @@ const Subjects = () => {
               className={`premium-card ${subject.colorClass || colorClasses[index % colorClasses.length]}`}
               key={subject.id}
             >
+              <div className="discount-ribbon"><span>{subject.totalQuestions} MCQs</span></div>
               <div className="card-glow"></div>
               
               <div className="card-header">
@@ -121,10 +122,6 @@ const Subjects = () => {
                   <div className="stat">
                     <Layers size={16} />
                     <span>{subject.totalChapters} Chapters</span>
-                  </div>
-                  <div className="stat">
-                    <Target size={16} />
-                    <span>{subject.totalQuestions} MCQs</span>
                   </div>
                 </div>
               </div>
