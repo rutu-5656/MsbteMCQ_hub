@@ -16,7 +16,7 @@ const Home = () => {
       <section className="hero-section">
         <div className="hero-content">
           <div className="badge">🚀 The #1 App for MSBTE Students</div>
-          <h1>Master Your Diploma with <span className="highlight">MsbteMCQ</span></h1>
+          <h1>Master Your Diploma with <span className="highlight">takeUforward</span></h1>
           <p>
             Ace your MSBTE online exams with our massive database of exam-oriented MCQs for FYCO, FYME, and all other branches. Study smarter, not harder.
           </p>
@@ -50,7 +50,7 @@ const Home = () => {
       {/* Features Section */}
       <section className="features-section">
         <div className="section-header center">
-          <h2>Why Choose MsbteMCQ?</h2>
+          <h2>Why Choose takeUforward?</h2>
           <p>Everything you need to score 90%+ in your online multiple-choice exams.</p>
         </div>
         
@@ -87,7 +87,7 @@ const Home = () => {
           <h2>Ready to crack your next paper?</h2>
           <p>Create your free account today and start practicing immediately.</p>
           <Link to="/signup" className="btn btn-primary white">
-            Join MsbteMCQ Now
+            Join takeUforward Now
           </Link>
         </div>
       </section>

@@ -47,7 +47,7 @@ const Contact = () => {
     <div className="contact-container">
       <div className="contact-header">
         <h1>Get in Touch</h1>
-        <p>Have questions about MsbteMCQ? We are here to help you ace your exams!</p>
+        <p>Have questions about takeUforward? We are here to help you ace your exams!</p>
       </div>
 
       <div className="contact-content">

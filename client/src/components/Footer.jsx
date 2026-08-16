@@ -42,7 +42,7 @@ const Footer = () => {
           </p> */}
           
           <p className="copyright">
-            Copyright &copy; {new Date().getFullYear()} MsbteMCQ. All Rights Reserved. <br/>
+            Copyright &copy; {new Date().getFullYear()} takeUforward. All Rights Reserved. <br/>
             Designed & Developed by <span className="developer-name">Ruturaj Jadhav</span>
           </p>
         </div>
