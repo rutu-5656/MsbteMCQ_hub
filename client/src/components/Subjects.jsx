@@ -56,7 +56,7 @@ const Subjects = () => {
           <Search className="search-icon" size={20} />
           <input
             type="text"
-            placeholder="Search for your subject (e.g., ETI, Environmental Studies)..."
+            placeholder="Search for your subject (e.g. ETI, Environmental Studies)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -108,22 +108,12 @@ const Subjects = () => {
               <div className="discount-ribbon"><span>{subject.totalQuestions} MCQs</span></div>
               <div className="card-glow"></div>
               
-              <div className="card-header">
-                <div className="icon-wrapper">
-                  <Code size={28} strokeWidth={2.5} />
-                </div>
+              <div className="card-header" style={{ justifyContent: 'flex-end' }}>
                 <div className="badge-pro">{subject.code}</div>
               </div>
               
               <div className="card-content">
                 <h3>{subject.title}</h3>
-                
-                <div className="card-stats">
-                  <div className="stat">
-                    <Layers size={16} />
-                    <span>{subject.totalChapters} Chapters</span>
-                  </div>
-                </div>
               </div>
               
               <div className="card-footer">

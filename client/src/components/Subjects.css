@@ -97,7 +97,7 @@
   position: relative;
   background: var(--bg-card);
   border-radius: var(--radius-2xl);
-  padding: 2.5rem;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -147,9 +147,9 @@
 /* Card Components */
 .card-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .icon-wrapper {
@@ -308,7 +308,7 @@
 .discount-ribbon {
   position: absolute;
   top: 20px;
-  right: -32px;
+  left: -32px;
   background: linear-gradient(135deg, #f43f5e, #e11d48);
   color: white;
   padding: 0.35rem 3rem;
@@ -316,7 +316,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transform: rotate(45deg);
+  transform: rotate(-45deg);
   box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
   z-index: 10;
   pointer-events: none;
