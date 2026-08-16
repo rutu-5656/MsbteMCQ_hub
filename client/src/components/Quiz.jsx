@@ -401,6 +401,15 @@ const Quiz = () => {
             </div>
 
             <div className="results-actions">
+              <a 
+                href={`https://api.whatsapp.com/send?text=I just scored ${correct}/${resultsData.totalQs} in ${resultsData.chapter.title} on takeUforward! Think you can beat my score? Try it here: https://takeufroward.vercel.app/`}
+                target="_blank" 
+                rel="noreferrer"
+                className="results-btn"
+                style={{ background: '#25D366', color: 'white', borderColor: '#25D366' }}
+              >
+                Share on WhatsApp
+              </a>
               <button className="results-btn secondary" onClick={() => handleChapterSelect(resultsData.chapter)}>
                 <RotateCcw size={18} /> Retake Test
               </button>
