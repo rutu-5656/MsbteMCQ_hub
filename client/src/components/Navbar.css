@@ -38,8 +38,8 @@
   letter-spacing: -0.5px;
 }
 
-.navbar-logo img {
-  /* removed filter so the logo displays with its original colors */
+.navbar-logo .desktop-logo {
+  filter: brightness(0) invert(1);
 }
 
 .navbar-logo svg {
