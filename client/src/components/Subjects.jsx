@@ -61,6 +61,16 @@ const Subjects = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+
+        <div className="contributor-marquee-wrapper">
+          <div className="marquee-text-container">
+            <div className="marquee-content">
+              <span>🚀 Want to be a contributor to MCQ Data Sources and Resources? Contact Admin!</span>
+              <span>🚀 Want to be a contributor to MCQ Data Sources and Resources? Contact Admin!</span>
+            </div>
+          </div>
+          <button className="marquee-contact-btn" onClick={() => navigate('/contact')}>Contact</button>
+        </div>
       </div>
 
       {loading ? (

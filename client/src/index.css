@@ -105,3 +105,66 @@ img {
   max-width: 100%;
   display: block;
 }
+
+/* Community Contributor Marquee */
+.contributor-marquee-wrapper {
+  width: 100%;
+  background: linear-gradient(90deg, rgba(13,148,136,0.1) 0%, rgba(30,58,138,0.1) 100%);
+  border: 1px dashed rgba(13,148,136,0.4);
+  border-radius: var(--radius-md);
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.marquee-text-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 25s linear infinite;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-150%); }
+}
+
+.marquee-contact-btn {
+  background: var(--accent);
+  color: white;
+  padding: 0.4rem 1.25rem;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px var(--accent-glow);
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.marquee-contact-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}

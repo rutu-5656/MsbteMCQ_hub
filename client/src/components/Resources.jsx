@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FileText, Download, Folder, Loader, ChevronDown, ChevronUp } from 'lucide-react';
 import './Resources.css';
 
@@ -6,6 +7,7 @@ const API_BASE = 'https://msbtemcq-hub.onrender.com/api';
 const SERVER_URL = 'https://msbtemcq-hub.onrender.com';
 
 const Resources = () => {
+  const navigate = useNavigate();
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -52,6 +54,16 @@ const Resources = () => {
       <div className="resources-header">
         <h1>Study Resources</h1>
         <p>Download previous year question papers, syllabuses, and quick revision notes.</p>
+        
+        <div className="contributor-marquee-wrapper" style={{ marginTop: '2rem' }}>
+          <div className="marquee-text-container">
+            <div className="marquee-content">
+              <span>🚀 Want to be a contributor to MCQ Data Sources and Resources? Contact Admin!</span>
+              <span>🚀 Want to be a contributor to MCQ Data Sources and Resources? Contact Admin!</span>
+            </div>
+          </div>
+          <button className="marquee-contact-btn" onClick={() => navigate('/contact')}>Contact</button>
+        </div>
       </div>
 
       {loading ? (
